@@ -22,11 +22,12 @@
             setInterval(() => {
                 const timeInMiliseconds = (Date.now() - start);
                
-                let h,m,s;
-                h = Math.floor(timeInMiliseconds/1000/60/60);
-                m = Math.floor((timeInMiliseconds/1000/60/60 - h)*60);
-                s = Math.floor(((timeInMiliseconds/1000/60/60 - h)*60 - m)*60);
-
+                let h,m,s,c;
+                h = Math.floor(timeInMiliseconds / 3600000);
+                m = Math.floor((timeInMiliseconds % 3600000) / 60000);
+                s = Math.floor((timeInMiliseconds % 60000) / 1000);
+                c = Math.floor((timeInMiliseconds % 1000) / 10);
+                
                 if (h <= 9) {
                     h = "0" + h;
                 }
@@ -39,7 +40,11 @@
                     s = "0" + s;
                 }
 
-                document.querySelector('.stopwatch').innerHTML = `${h}:${m}:${s}`;
+                if (c <= 9) {
+                    c = "0" + c;
+                }
+
+                document.querySelector('.stopwatch').innerHTML = `${h}:${m}:${s}.${c}`;
             }, 1);
         </script>
     </body>
